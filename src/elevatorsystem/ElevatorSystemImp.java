@@ -1,58 +1,59 @@
 package elevatorsystem;
 
 import elevator.Elevator;
+import elevator.MovingState;
 
-public class ElevatorSystemImp implements ElevatorSystem {
-	private int minFloor, maxFloor;
-	
-	public ElevatorSystemImp(int minFloor, int maxFloor) {
-		this.minFloor = minFloor;
-		this.maxFloor= maxFloor;
+public class ElevatorSystemImp implements ElevatorSystem,ElevatorPanel {
+	private int MAX_FLOOR;
+	private int MIN_FLOOR;
+	private Elevator elevator;
+	public ElevatorSystemImp(int min,int max) {
+		MAX_FLOOR = max;
+		MIN_FLOOR = min;
 	}
-
+	
 	@Override
 	public int getFloorCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return MAX_FLOOR - MIN_FLOOR;
 	}
 
 	@Override
 	public int getMaxFloor() {
-		return maxFloor;
+		return MAX_FLOOR;
 	}
 
 	@Override
 	public int getMinFloor() {
-		return minFloor;
+		return MIN_FLOOR;
 	}
-
 	@Override
 	public Elevator callUp(int floor) {
-		// TODO Auto-generated method stub
-		return null;
+		elevator.moveTo(floor);
+		return elevator;
 	}
-
 	@Override
 	public Elevator callDown(int floor) {
-		return null;
+		elevator.moveTo(floor);
+		return elevator;
 	}
-
 	@Override
 	public int getCurrentFloor() {
-		// TODO Auto-generated method stub
-		return 0;
+		return elevator.getFloor();
 	}
 
 	@Override
 	public double getPowerConsumed() {
-		// TODO Auto-generated method stub
-		return 0;
+		return elevator.getPowerConsumed();
 	}
 
 	@Override
 	public void addElevator(Elevator elevator) {
-		// TODO Auto-generated method stub
+		this.elevator = elevator;
+	}
 
+	@Override
+	public void requestStop(int floor, Elevator elevator) {
+		elevator.requestStop(floor);
 	}
 
 
